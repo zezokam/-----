@@ -1,0 +1,23 @@
+{
+  "name": "supreme-court-principles",
+  "version": "1.0.0",
+  "description": "قاعدة بيانات مبادئ المحكمة العليا العمانية",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build needed' && exit 0",
+    "start": "echo 'Static site ready'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zezokam/قاعدة-بيانات-المبادئ.git"
+  },
+  "keywords": [
+    "قانون",
+    "مبادئ",
+    "محكمة",
+    "عمان",
+    "قضاء"
+  ],
+  "author": "alkamali.uk",
+  "license": "MIT"
+}
