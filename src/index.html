@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث في مبادئ المحكمة العليا - المرجع القضائي</title>
+    <meta name="description" content="محرك بحث ذكي للعثور على مبادئ المحكمة العليا العمانية حسب نوع الدعوى والموضوع القانوني">
+    
+    <!-- خطوط Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* ألوان مستوحاة من الموقع الأصلي */
+            --primary-brown: #8B6F47;
+            --secondary-brown: #A0845C;
+            --light-brown: #C4A373;
+            --dark-brown: #6B5537;
+            --accent-gold: #D4AF37;
+            --background-light: #F8F6F0;
+            --background-white: #FFFFFF;
+            --text-dark: #2C2C2C;
+            --text-light: #666666;
+            --border-color: #E0D5C7;
+            --shadow-light: rgba(139, 111, 71, 0.1);
+            --shadow-medium: rgba(139, 111, 71, 0.2);
+            --shadow-dark: rgba(139, 111, 71, 0.3);
+            
+            /* خطوط */
+            --font-family: 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            
+            /* مسافات */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-xxl: 3rem;
+            
+            /* نصف قطر الحواف */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            
+            /* انتقالات */
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            direction: rtl;
+        }
+
+        /* حاوي عام */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* شريط التنقل العلوي */
+        .top-nav {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            box-shadow: 0 2px 10px var(--shadow-medium);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--spacing-md);
+        }
+
+        .nav-tabs {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .nav-tab {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+            transition: var(--transition-medium);
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .nav-tab i {
+            font-size: 1rem;
+        }
+
+        /* الشعار */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: white;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            min-height: calc(100vh - 80px);
+            padding: var(--spacing-xxl) 0;
+        }
+
+        /* قسم العنوان */
+        .hero-section {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 1px 1px 3px var(--shadow-light);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* قسم البحث */
+        .search-section {
+            background: var(--background-white);
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-xxl);
+            box-shadow: 0 4px 20px var(--shadow-light);
+            margin-bottom: var(--spacing-xxl);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .search-input-container {
+            display: flex;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            transition: var(--transition-medium);
+        }
+
+        .search-input-container:focus-within {
+            border-color: var(--primary-brown);
+            box-shadow: 0 4px 25px var(--shadow-medium);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            font-family: var(--font-family);
+            background: transparent;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search-btn {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: var(--transition-medium);
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, var(--dark-brown) 0%, var(--primary-brown) 100%);
+            transform: translateY(-1px);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        /* اقتراحات البحث */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+            box-shadow: 0 4px 20px var(--shadow-light);
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .suggestion-item {
+            padding: var(--spacing-md) var(--spacing-lg);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .suggestion-item:hover {
+            background: var(--background-light);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* خيارات البحث */
+        .search-options {
+            background: var(--background-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+
+        .filter-select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background: white;
+            font-family: var(--font-family);
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background: var(--primary-brown);
+            border-color: var(--primary-brown);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* قسم النتائج */
+        .results-section {
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .search-stats {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 2px 10px var(--shadow-light);
+            border: 1px solid var(--border-color);
+        }
+
+        .results-container {
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        /* بطاقة النتيجة */
+        .result-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: 0 2px 10px var(--shadow-light);
+            transition: var(--transition-medium);
+            cursor: pointer;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 4px 20px var(--shadow-medium);
+            transform: translateY(-2px);
+            border-color: var(--primary-brown);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .result-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .meta-item i {
+            color: var(--primary-brown);
+        }
+
+        .relevance-score {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .result-content {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .result-text {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.1rem;
+        }
+
+        .result-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .keyword-tag {
+            background: var(--background-light);
+            color: var(--primary-brown);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* مؤشر التحميل */
+        .loading-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .loading-indicator.show {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-brown);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--spacing-md);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* رسائل التنبيه */
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 4000;
+            font-weight: 500;
+            max-width: 400px;
+            word-wrap: break-word;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .message.error {
+            background: #f44336;
+            color: white;
+        }
+
+        .message.warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* فئات مخفية */
+        .hidden {
+            display: none !important;
+        }
+
+        /* استجابة للأجهزة المحمولة */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                padding: var(--spacing-md);
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-tab {
+                font-size: 0.8rem;
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            
+            .nav-tab span {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .search-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .result-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .result-meta {
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .search-input-container {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                border-radius: 0 0 var(--border-radius-xl) var(--border-radius-xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل العلوي -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-tabs">
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-gavel"></i>
+                    <span>تسجيل الدخول</span>
+                </a>
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-phone"></i>
+                    <span>تواصل معنا</span>
+                </a>
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-info-circle"></i>
+                    <span>نبذة</span>
+                </a>
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-search"></i>
+                    <span>مُعين: مراجع ونماذج قضائية</span>
+                </a>
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-calculator"></i>
+                    <span>حاسبة النفقة التقديرية</span>
+                </a>
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-coins"></i>
+                    <span>حاسبة مكافأة نهاية الخدمة</span>
+                </a>
+                <a href="#" class="nav-tab">
+                    <i class="fas fa-home"></i>
+                    <span>الرئيسية</span>
+                </a>
+            </div>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>المرجع القضائي</h1>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="container">
+            <!-- قسم العنوان والوصف -->
+            <section class="hero-section">
+                <h1 class="hero-title">البحث في مبادئ المحكمة العليا</h1>
+                <p class="hero-description">
+                    محرك بحث ذكي للعثور على مبادئ المحكمة العليا العمانية حسب نوع الدعوى والموضوع القانوني
+                </p>
+            </section>
+
+            <!-- قسم البحث الرئيسي -->
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <div class="search-input-container">
+                            <input type="text" 
+                                   id="searchInput" 
+                                   class="search-input" 
+                                   placeholder="ابحث عن نوع الدعوى أو الموضوع القانوني (مثل: سرقة ليلاً، انتهاك حرمة مسكن، الشفعة...)"
+                                   autocomplete="off">
+                            <button type="button" id="searchBtn" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                <span>بحث</span>
+                            </button>
+                        </div>
+                        
+                        <!-- اقتراحات البحث -->
+                        <div id="searchSuggestions" class="search-suggestions hidden">
+                            <!-- سيتم ملؤها بـ JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- خيارات البحث المتقدم -->
+                    <div class="search-options">
+                        <div class="search-filters">
+                            <div class="filter-group">
+                                <label for="courtType">نوع المحكمة:</label>
+                                <select id="courtType" class="filter-select">
+                                    <option value="">جميع الأنواع</option>
+                                    <option value="جزائي">جزائي</option>
+                                    <option value="مدني">مدني</option>
+                                    <option value="شرعي">شرعي</option>
+                                    <option value="إداري">إداري</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="maxResults">عدد النتائج:</label>
+                                <select id="maxResults" class="filter-select">
+                                    <option value="10">10 نتائج</option>
+                                    <option value="20" selected>20 نتيجة</option>
+                                    <option value="50">50 نتيجة</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="includeOnlineSearch" checked>
+                                    <span class="checkmark"></span>
+                                    البحث على الإنترنت إذا لم توجد نتائج كافية
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم النتائج -->
+            <section id="resultsSection" class="results-section">
+                <!-- إحصائيات البحث -->
+                <div id="searchStats" class="search-stats">
+                    <!-- سيتم ملؤها بـ JavaScript -->
+                </div>
+
+                <!-- النتائج المحلية -->
+                <div id="localResults" class="results-container">
+                    <h2 class="results-title">
+                        <i class="fas fa-database"></i>
+                        النتائج من قاعدة البيانات المحلية
+                    </h2>
+                    <div id="localResultsList" class="results-list">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+
+                <!-- النتائج من الإنترنت -->
+                <div id="onlineResults" class="results-container hidden">
+                    <h2 class="results-title">
+                        <i class="fas fa-globe"></i>
+                        النتائج من الإنترنت
+                    </h2>
+                    <div id="onlineResultsList" class="results-list">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- مؤشر التحميل -->
+    <div id="loadingIndicator" class="loading-indicator">
+        <div class="loading-spinner"></div>
+        <p>جاري البحث...</p>
+    </div>
+
+    <script>
+        // متغيرات عامة
+        let currentQuery = '';
+        let searchTimeout = null;
+        let isSearching = false;
+        let suggestionsTimeout = null;
+
+        // عناصر DOM
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        const courtTypeSelect = document.getElementById('courtType');
+        const maxResultsSelect = document.getElementById('maxResults');
+        const includeOnlineCheckbox = document.getElementById('includeOnlineSearch');
+        const resultsSection = document.getElementById('resultsSection');
+        const searchStats = document.getElementById('searchStats');
+        const localResults = document.getElementById('localResults');
+        const localResultsList = document.getElementById('localResultsList');
+        const onlineResults = document.getElementById('onlineResults');
+        const onlineResultsList = document.getElementById('onlineResultsList');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+        });
+
+        // إعداد مستمعي الأحداث
+        function initializeEventListeners() {
+            // البحث
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // اقتراحات البحث أثناء الكتابة
+            searchInput.addEventListener('input', function() {
+                clearTimeout(suggestionsTimeout);
+                suggestionsTimeout = setTimeout(fetchSearchSuggestions, 300);
+            });
+            
+            // إخفاء الاقتراحات عند النقر خارجها
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-box')) {
+                    hideSearchSuggestions();
+                }
+            });
+            
+            // مفتاح Escape لإغلاق الاقتراحات
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hideSearchSuggestions();
+                }
+            });
+        }
+
+        // جلب اقتراحات البحث من الخادم
+        async function fetchSearchSuggestions() {
+            const query = searchInput.value.trim();
+            
+            if (query.length < 2) {
+                hideSearchSuggestions();
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}`);
+                const suggestions = await response.json();
+                
+                if (suggestions.length > 0) {
+                    displaySuggestions(suggestions);
+                } else {
+                    hideSearchSuggestions();
+                }
+            } catch (error) {
+                console.error('خطأ في جلب الاقتراحات:', error);
+                hideSearchSuggestions();
+            }
+        }
+
+        // عرض الاقتراحات
+        function displaySuggestions(suggestions) {
+            searchSuggestions.innerHTML = '';
+            
+            suggestions.forEach(suggestion => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.textContent = suggestion;
+                
+                suggestionItem.addEventListener('click', function() {
+                    searchInput.value = suggestion;
+                    hideSearchSuggestions();
+                    performSearch();
+                });
+                
+                searchSuggestions.appendChild(suggestionItem);
+            });
+            
+            searchSuggestions.classList.remove('hidden');
+        }
+
+        // إخفاء الاقتراحات
+        function hideSearchSuggestions() {
+            searchSuggestions.classList.add('hidden');
+        }
+
+        // تنفيذ البحث
+        function performSearch() {
+            const query = searchInput.value.trim();
+            
+            if (!query) {
+                showMessage('يرجى إدخال نص للبحث', 'warning');
+                return;
+            }
+            
+            if (isSearching) {
+                return;
+            }
+            
+            currentQuery = query;
+            isSearching = true;
+            
+            showLoadingIndicator();
+            hideSearchSuggestions();
+            
+            // محاكاة البحث (في التطبيق الفعلي سيكون API call)
+            setTimeout(() => {
+                const results = searchInMockData(query);
+                displaySearchResults(results);
+                hideLoadingIndicator();
+                isSearching = false;
+            }, 1500);
+        }
+
+        // البحث في البيانات التجريبية
+        function searchInMockData(query) {
+            const queryLower = query.toLowerCase();
+            const maxResults = parseInt(maxResultsSelect.value);
+            const courtTypeFilter = courtTypeSelect.value;
+            
+            let filteredResults = mockPrinciples.filter(principle => {
+                // تصفية حسب نوع المحكمة
+                if (courtTypeFilter && principle.court_type !== courtTypeFilter) {
+                    return false;
+                }
+                
+                // البحث في النص والكلمات المفتاحية
+                const textMatch = principle.text.toLowerCase().includes(queryLower);
+                const keywordMatch = principle.keywords.some(keyword => 
+                    keyword.toLowerCase().includes(queryLower) || queryLower.includes(keyword.toLowerCase())
+                );
+                
+                return textMatch || keywordMatch;
+            });
+            
+            // ترتيب النتائج حسب الصلة
+            filteredResults.sort((a, b) => b.relevance_score - a.relevance_score);
+            
+            return {
+                query: query,
+                local_results: filteredResults.slice(0, maxResults),
+                total_local: filteredResults.length,
+                online_results: [],
+                total_online: 0
+            };
+        }
+
+        // عرض نتائج البحث
+        function displaySearchResults(data) {
+            // إظهار قسم النتائج
+            resultsSection.classList.add('show');
+            
+            // عرض الإحصائيات
+            displaySearchStats(data);
+            
+            // عرض النتائج المحلية
+            displayLocalResults(data.local_results);
+            
+            // إخفاء النتائج الإلكترونية (لأنها فارغة في هذا المثال)
+            onlineResults.classList.add('hidden');
+            
+            // التمرير إلى النتائج
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // عرض إحصائيات البحث
+        function displaySearchStats(data) {
+            const totalLocal = data.total_local || 0;
+            
+            searchStats.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h3 style="color: var(--primary-brown); margin-bottom: 0.5rem;">
+                            <i class="fas fa-search"></i>
+                            نتائج البحث عن: "${currentQuery}"
+                        </h3>
+                        <p style="color: var(--text-light); margin: 0;">
+                            تم العثور على ${totalLocal} نتيجة محلية
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span class="meta-item">
+                            <i class="fas fa-database"></i>
+                            قاعدة بيانات محلية
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // عرض النتائج المحلية
+        function displayLocalResults(results) {
+            if (!results || results.length === 0) {
+                localResultsList.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-light);">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>لم يتم العثور على مبادئ مطابقة في قاعدة البيانات المحلية</p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">جرب استخدام كلمات مفتاحية مختلفة أو أقل تحديداً</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            localResultsList.innerHTML = '';
+            
+            results.forEach((result, index) => {
+                const resultCard = createResultCard(result, index);
+                localResultsList.appendChild(resultCard);
+            });
+        }
+
+        // إنشاء بطاقة نتيجة
+        function createResultCard(result, index) {
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            
+            const relevanceScore = result.relevance_score ? result.relevance_score.toFixed(1) : '0.0';
+            const caseNumber = result.case_number || 'غير محدد';
+            const date = result.date || 'غير محدد';
+            const courtType = result.court_type || 'غير محدد';
+            const sourceFile = result.source_file || 'غير معروف';
+            
+            card.innerHTML = `
+                <div class="result-header">
+                    <div class="result-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>رقم الطعن: ${caseNumber}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>${date}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-gavel"></i>
+                            <span>${courtType}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-folder"></i>
+                            <span>${sourceFile}</span>
+                        </div>
+                    </div>
+                    <div class="relevance-score">
+                        درجة الصلة: ${relevanceScore}
+                    </div>
+                </div>
+                
+                <div class="result-content">
+                    <div class="result-text">${result.text}</div>
+                    
+                    ${result.keywords && result.keywords.length > 0 ? `
+                        <div class="result-keywords">
+                            ${result.keywords.slice(0, 8).map(keyword => 
+                                `<span class="keyword-tag">${keyword}</span>`
+                            ).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // عرض مؤشر التحميل
+        function showLoadingIndicator() {
+            loadingIndicator.classList.add('show');
+        }
+
+        // إخفاء مؤشر التحميل
+        function hideLoadingIndicator() {
+            loadingIndicator.classList.remove('show');
+        }
+
+        // عرض رسالة
+        function showMessage(message, type = 'info') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.parentNode.removeChild(messageDiv);
+                    }
+                }, 300);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
