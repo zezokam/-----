@@ -759,26 +759,37 @@
         // تحميل قاعدة البيانات
         async function loadDatabase() {
             try {
+                console.log('🔄 بدء تحميل قاعدة البيانات...');
+                
                 // تحميل المبادئ
                 const principlesResponse = await fetch('./data/precise_principles.json');
+                console.log('📊 استجابة المبادئ:', principlesResponse.status);
+                
                 if (principlesResponse.ok) {
                     principlesDatabase = await principlesResponse.json();
+                    console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ قضائي`);
+                } else {
+                    throw new Error(`فشل تحميل المبادئ: ${principlesResponse.status}`);
                 }
 
                 // تحميل فهرس البحث
                 const indexResponse = await fetch('./data/precise_search_index.json');
+                console.log('🔍 استجابة الفهرس:', indexResponse.status);
+                
                 if (indexResponse.ok) {
                     searchIndex = await indexResponse.json();
+                    console.log(`🔍 تم تحميل فهرس البحث مع ${Object.keys(searchIndex).length} كلمة`);
+                } else {
+                    throw new Error(`فشل تحميل الفهرس: ${indexResponse.status}`);
                 }
-
-                console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ قضائي`);
-                console.log(`🔍 تم تحميل فهرس البحث مع ${Object.keys(searchIndex).length} كلمة`);
                 
             } catch (error) {
-                console.error('خطأ في تحميل قاعدة البيانات:', error);
+                console.error('❌ خطأ في تحميل قاعدة البيانات:', error);
+                console.log('🔄 استخدام البيانات التجريبية...');
                 // استخدام بيانات تجريبية
                 principlesDatabase = getMockData();
                 searchIndex = createMockIndex();
+                console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ تجريبي`);
             }
         }
 
@@ -824,6 +835,46 @@
                     "court_type": "شرعي",
                     "source_file": "شرعية11.doc",
                     "keywords": ["نفقة", "أطفال", "أب", "أولاد", "تقدير", "مالية"]
+                },
+                {
+                    "text": "حادث السير. مسؤولية السائق. وجوب إثبات الخطأ والضرر والعلاقة السببية. التعويض عن الأضرار المادية والمعنوية.",
+                    "case_number": "156/2012",
+                    "date": "8/4/2012", 
+                    "court_type": "مدني",
+                    "source_file": "مدنية12.doc",
+                    "keywords": ["حادث", "سير", "مسؤولية", "سائق", "خطأ", "ضرر", "تعويض"]
+                },
+                {
+                    "text": "عقد البيع. العيب الخفي. حق المشتري في الرد أو إنقاص الثمن. سقوط الحق بالتقادم أو بالرضا بالعيب.",
+                    "case_number": "298/2013",
+                    "date": "15/9/2013", 
+                    "court_type": "مدني",
+                    "source_file": "مدنية13.doc",
+                    "keywords": ["عقد", "بيع", "عيب", "خفي", "مشتري", "رد", "ثمن", "تقادم"]
+                },
+                {
+                    "text": "القتل العمد. توافر القصد الجنائي. وجوب إثبات النية في إزهاق الروح. عدم كفاية القصد العام.",
+                    "case_number": "87/2014",
+                    "date": "22/6/2014", 
+                    "court_type": "جزائي",
+                    "source_file": "جزائي14.doc",
+                    "keywords": ["قتل", "عمد", "قصد", "جنائي", "نية", "روح", "إثبات"]
+                },
+                {
+                    "text": "الطلاق للضرر. وجوب إثبات الضرر الفعلي. عدم كفاية الخلافات العادية بين الزوجين. تقدير المحكمة للضرر.",
+                    "case_number": "45/2015",
+                    "date": "3/11/2015", 
+                    "court_type": "شرعي",
+                    "source_file": "شرعي15.doc",
+                    "keywords": ["طلاق", "ضرر", "إثبات", "خلافات", "زوجين", "محكمة", "تقدير"]
+                },
+                {
+                    "text": "تزوير المستندات. ركن التغيير في الحقيقة. وجوب أن يكون التغيير جوهرياً. عدم كفاية التغيير الشكلي.",
+                    "case_number": "234/2016",
+                    "date": "18/7/2016", 
+                    "court_type": "جزائي",
+                    "source_file": "جزائي16.doc",
+                    "keywords": ["تزوير", "مستندات", "تغيير", "حقيقة", "جوهري", "شكلي"]
                 }
             ];
         }
