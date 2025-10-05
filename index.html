@@ -14,6 +14,9 @@
     <!-- أيقونات Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- قاعدة البيانات المدمجة -->
+    <script src="./data.js"></script>
+    
     <style>
         /* إعدادات عامة */
         * {
@@ -751,45 +754,33 @@
         let isLoading = false;
 
         // تحميل البيانات عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', async function() {
-            await loadDatabase();
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDatabase();
             setupEventListeners();
         });
 
         // تحميل قاعدة البيانات
-        async function loadDatabase() {
+        function loadDatabase() {
             try {
                 console.log('🔄 بدء تحميل قاعدة البيانات...');
                 
-                // تحميل المبادئ
-                const principlesResponse = await fetch('./data/precise_principles.json');
-                console.log('📊 استجابة المبادئ:', principlesResponse.status);
-                
-                if (principlesResponse.ok) {
-                    principlesDatabase = await principlesResponse.json();
-                    console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ قضائي`);
+                // استخدام البيانات المدمجة
+                if (typeof PRINCIPLES_DATABASE !== 'undefined' && typeof SEARCH_INDEX !== 'undefined') {
+                    principlesDatabase = PRINCIPLES_DATABASE;
+                    searchIndex = SEARCH_INDEX;
+                    console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ قضائي من البيانات المدمجة`);
+                    console.log(`🔍 تم تحميل فهرس البحث مع ${Object.keys(searchIndex).length} كلمة مفهرسة`);
                 } else {
-                    throw new Error(`فشل تحميل المبادئ: ${principlesResponse.status}`);
-                }
-
-                // تحميل فهرس البحث
-                const indexResponse = await fetch('./data/precise_search_index.json');
-                console.log('🔍 استجابة الفهرس:', indexResponse.status);
-                
-                if (indexResponse.ok) {
-                    searchIndex = await indexResponse.json();
-                    console.log(`🔍 تم تحميل فهرس البحث مع ${Object.keys(searchIndex).length} كلمة`);
-                } else {
-                    throw new Error(`فشل تحميل الفهرس: ${indexResponse.status}`);
+                    throw new Error('البيانات المدمجة غير متاحة');
                 }
                 
             } catch (error) {
                 console.error('❌ خطأ في تحميل قاعدة البيانات:', error);
                 console.log('🔄 استخدام البيانات التجريبية...');
-                // استخدام بيانات تجريبية
+                // استخدام بيانات تجريبية كحل احتياطي
                 principlesDatabase = getMockData();
                 searchIndex = createMockIndex();
-                console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ تجريبي`);
+                console.log(`⚠️ تم تحميل ${principlesDatabase.length} مبدأ تجريبي كحل احتياطي`);
             }
         }
 
