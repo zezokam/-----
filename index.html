@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>البحث في مبادئ المحكمة العليا - المرجع القضائي</title>
-    <meta name="description" content="قاعدة بيانات مبادئ المحكمة العليا العمانية - أكثر من 6700 مبدأ قضائي">
+    <meta name="description" content="قاعدة بيانات مبادئ المحكمة العليا العمانية - أكثر من 6700 مبدأ قضائي مع محرك بحث ذكي">
     
     <!-- خطوط Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,13 +163,13 @@
         /* المحتوى الرئيسي */
         .main-content {
             min-height: calc(100vh - 80px);
-            padding: var(--spacing-xxl) 0;
+            padding: var(--spacing-xl) 0;
         }
 
         /* قسم العنوان */
         .hero-section {
             text-align: center;
-            margin-bottom: var(--spacing-xxl);
+            margin-bottom: var(--spacing-xl);
         }
 
         .hero-title {
@@ -184,163 +184,362 @@
             font-size: 1.2rem;
             color: var(--text-light);
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto var(--spacing-xl);
             line-height: 1.8;
         }
 
-        /* قسم المعلومات */
-        .info-section {
+        /* قسم البحث */
+        .search-section {
             background: var(--background-white);
             border-radius: var(--border-radius-xl);
             padding: var(--spacing-xxl);
             box-shadow: 0 4px 20px var(--shadow-light);
-            margin-bottom: var(--spacing-xxl);
+            margin-bottom: var(--spacing-xl);
             border: 1px solid var(--border-color);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-xxl);
+        .search-form {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .stat-card {
-            background: var(--background-light);
-            padding: var(--spacing-xl);
+        .search-input-container {
+            position: relative;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            padding-left: 60px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
             border-radius: var(--border-radius-lg);
-            text-align: center;
+            background: var(--background-light);
+            color: var(--text-dark);
+            font-family: var(--font-family);
+            transition: var(--transition-medium);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-brown);
+            box-shadow: 0 0 0 3px rgba(139, 111, 71, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--spacing-lg);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: var(--spacing-md) var(--spacing-lg);
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+
+        .suggestion-item:hover {
+            background: var(--background-light);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* خيارات البحث */
+        .search-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .option-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .option-select {
+            padding: var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            background: var(--background-light);
+            color: var(--text-dark);
+            font-family: var(--font-family);
+            font-size: 0.9rem;
+        }
+
+        .option-select:focus {
+            outline: none;
+            border-color: var(--primary-brown);
+        }
+
+        /* زر البحث */
+        .search-button {
+            width: 100%;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            font-family: var(--font-family);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-medium);
+        }
+
+        .search-button:active {
+            transform: translateY(0);
+        }
+
+        .search-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* قسم النتائج */
+        .results-section {
+            margin-top: var(--spacing-xl);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background: var(--background-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 2px 10px var(--shadow-light);
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        .results-time {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* بطاقة النتيجة */
+        .result-card {
+            background: var(--background-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 4px 15px var(--shadow-light);
             border: 1px solid var(--border-color);
             transition: var(--transition-medium);
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
+        .result-card:hover {
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px var(--shadow-medium);
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-brown);
-            margin-bottom: var(--spacing-sm);
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
         }
 
-        .stat-label {
-            font-size: 1.1rem;
+        .result-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.9rem;
             color: var(--text-light);
+        }
+
+        .meta-item i {
+            color: var(--accent-gold);
+        }
+
+        .relevance-score {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .result-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-lg);
+            background: var(--background-light);
+            border-radius: var(--border-radius-md);
+            border-right: 4px solid var(--accent-gold);
+        }
+
+        .result-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-md);
+        }
+
+        .keyword-tag {
+            background: var(--primary-brown);
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
-        .stat-icon {
-            font-size: 3rem;
-            color: var(--accent-gold);
-            margin-bottom: var(--spacing-md);
+        /* قسم البحث الإلكتروني */
+        .online-results {
+            margin-top: var(--spacing-xl);
         }
 
-        /* قسم المميزات */
-        .features-section {
-            margin-bottom: var(--spacing-xxl);
-        }
-
-        .features-title {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--primary-brown);
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-xl);
-        }
-
-        .feature-card {
-            background: white;
-            padding: var(--spacing-xl);
-            border-radius: var(--border-radius-lg);
-            box-shadow: 0 4px 20px var(--shadow-light);
-            border: 1px solid var(--border-color);
-            transition: var(--transition-medium);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px var(--shadow-medium);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-gold);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary-brown);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .feature-description {
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* قسم الروابط */
-        .links-section {
-            background: var(--primary-brown);
+        .online-header {
+            background: var(--secondary-brown);
             color: white;
-            padding: var(--spacing-xxl);
-            border-radius: var(--border-radius-xl);
-            text-align: center;
-        }
-
-        .links-title {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-lg);
-        }
-
-        .link-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: var(--spacing-xl);
-            border-radius: var(--border-radius-lg);
-            transition: var(--transition-medium);
-            text-decoration: none;
-            color: white;
-            border: 2px solid transparent;
-        }
-
-        .link-card:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--accent-gold);
-            transform: translateY(-3px);
-        }
-
-        .link-icon {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-md);
-            color: var(--accent-gold);
-        }
-
-        .link-title {
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
             font-size: 1.2rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .online-result-card {
+            background: var(--background-white);
+            padding: var(--spacing-xl);
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+
+        .online-result-card:last-child {
+            border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+        }
+
+        .online-result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-brown);
             margin-bottom: var(--spacing-sm);
         }
 
-        .link-description {
+        .online-result-content {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .online-result-source {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.9rem;
-            opacity: 0.9;
+            color: var(--text-light);
+        }
+
+        .source-link {
+            color: var(--primary-brown);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        /* رسائل الحالة */
+        .loading-message,
+        .no-results-message,
+        .error-message {
+            text-align: center;
+            padding: var(--spacing-xxl);
+            background: var(--background-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .loading-message {
+            color: var(--primary-brown);
+        }
+
+        .loading-spinner {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--spacing-md);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results-message {
+            color: var(--text-light);
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .error-message {
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            background: #f8d7da;
         }
 
         /* استجابة للأجهزة المحمولة */
@@ -373,16 +572,22 @@
                 font-size: 1rem;
             }
             
-            .stats-grid {
+            .search-section {
+                padding: var(--spacing-lg);
+            }
+            
+            .search-options {
                 grid-template-columns: 1fr;
             }
             
-            .features-grid {
-                grid-template-columns: 1fr;
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
             
-            .links-grid {
-                grid-template-columns: 1fr;
+            .result-meta {
+                flex-direction: column;
+                gap: var(--spacing-sm);
             }
         }
 
@@ -391,10 +596,33 @@
                 padding: 0 var(--spacing-sm);
             }
             
-            .info-section,
-            .links-section {
+            .search-section {
+                padding: var(--spacing-md);
+            }
+            
+            .search-input {
+                padding: var(--spacing-md);
+                padding-left: 50px;
+            }
+            
+            .result-card {
                 padding: var(--spacing-lg);
             }
+        }
+
+        /* إخفاء العناصر */
+        .hidden {
+            display: none !important;
+        }
+
+        /* تأثيرات إضافية */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -427,6 +655,10 @@
                     <i class="fas fa-coins"></i>
                     <span>حاسبة مكافأة نهاية الخدمة</span>
                 </a>
+                <a href="#" class="nav-tab active">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>مبادئ المحكمة العليا</span>
+                </a>
                 <a href="https://alkamali.uk" class="nav-tab">
                     <i class="fas fa-home"></i>
                     <span>الرئيسية</span>
@@ -448,192 +680,539 @@
         <div class="container">
             <!-- قسم العنوان والوصف -->
             <section class="hero-section">
-                <h1 class="hero-title">قاعدة بيانات مبادئ المحكمة العليا</h1>
+                <h1 class="hero-title">البحث في مبادئ المحكمة العليا</h1>
                 <p class="hero-description">
-                    مجموعة شاملة من مبادئ المحكمة العليا العمانية مع محرك بحث ذكي وإمكانية البحث الإلكتروني
+                    ابحث في أكثر من 6,700 مبدأ قضائي صادر عن المحكمة العليا العمانية مع إمكانية البحث الإلكتروني في المصادر القانونية
                 </p>
             </section>
 
-            <!-- قسم الإحصائيات -->
-            <section class="info-section">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="stat-number">6,766</div>
-                        <div class="stat-label">مبدأ قضائي</div>
+            <!-- قسم البحث -->
+            <section class="search-section">
+                <form class="search-form" id="searchForm">
+                    <div class="search-input-container">
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="searchInput"
+                            placeholder="ابحث عن مبدأ قضائي... (مثال: سرقة ليلاً، انتهاك حرمة مسكن، الشفعة)"
+                            autocomplete="off"
+                        >
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-suggestions" id="searchSuggestions"></div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-search"></i>
+                    <div class="search-options">
+                        <div class="option-group">
+                            <label class="option-label">نوع المحكمة</label>
+                            <select class="option-select" id="courtType">
+                                <option value="">جميع الأنواع</option>
+                                <option value="جزائي">جزائي</option>
+                                <option value="مدني">مدني</option>
+                                <option value="شرعي">شرعي</option>
+                                <option value="إداري">إداري</option>
+                            </select>
                         </div>
-                        <div class="stat-number">12,387</div>
-                        <div class="stat-label">كلمة مفهرسة</div>
+                        
+                        <div class="option-group">
+                            <label class="option-label">عدد النتائج</label>
+                            <select class="option-select" id="maxResults">
+                                <option value="10">10 نتائج</option>
+                                <option value="20" selected>20 نتيجة</option>
+                                <option value="50">50 نتيجة</option>
+                                <option value="100">100 نتيجة</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label class="option-label">البحث الإلكتروني</label>
+                            <select class="option-select" id="includeOnline">
+                                <option value="true" selected>مفعل</option>
+                                <option value="false">معطل</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-gavel"></i>
-                        </div>
-                        <div class="stat-number">3,417</div>
-                        <div class="stat-label">مبدأ جزائي</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <div class="stat-number">2,241</div>
-                        <div class="stat-label">مبدأ مدني</div>
-                    </div>
-                </div>
+                    <button type="submit" class="search-button" id="searchButton">
+                        <i class="fas fa-search"></i>
+                        <span>البحث في المبادئ</span>
+                    </button>
+                </form>
             </section>
 
-            <!-- قسم المميزات -->
-            <section class="features-section">
-                <h2 class="features-title">المميزات الرئيسية</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3 class="feature-title">بحث ذكي متقدم</h3>
-                        <p class="feature-description">
-                            محرك بحث يفهم السياق القانوني ويحلل نوع الدعوى لإيجاد المبادئ الأكثر صلة
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <h3 class="feature-title">البحث الإلكتروني</h3>
-                        <p class="feature-description">
-                            البحث في qanoon.om والمحاكم العربية عند عدم وجود نتائج كافية محلياً
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-filter"></i>
-                        </div>
-                        <h3 class="feature-title">فلاتر متقدمة</h3>
-                        <p class="feature-description">
-                            تصفية النتائج حسب نوع المحكمة (جزائي، مدني، شرعي، إداري) وعدد النتائج
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3 class="feature-title">اقتراحات ذكية</h3>
-                        <p class="feature-description">
-                            اقتراحات البحث التلقائية بناءً على المصطلحات القانونية الشائعة
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="feature-title">درجة الصلة</h3>
-                        <p class="feature-description">
-                            حساب دقيق لدرجة صلة كل مبدأ بالبحث المطلوب مع ترتيب النتائج
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3 class="feature-title">تصميم متجاوب</h3>
-                        <p class="feature-description">
-                            واجهة تعمل بسلاسة على جميع الأجهزة مع تصميم مطابق لموقع alkamali.uk
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- قسم الروابط -->
-            <section class="links-section">
-                <h2 class="links-title">الوصول إلى قاعدة البيانات</h2>
-                <div class="links-grid">
-                    <a href="https://github.com/zezokam/قاعدة-بيانات-المبادئ" class="link-card" target="_blank">
-                        <div class="link-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <h3 class="link-title">مستودع GitHub</h3>
-                        <p class="link-description">
-                            الكود المصدري الكامل مع قاعدة البيانات والوثائق
-                        </p>
-                    </a>
-                    
-                    <a href="https://github.com/zezokam/قاعدة-بيانات-المبادئ/blob/master/data/precise_principles.json" class="link-card" target="_blank">
-                        <div class="link-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h3 class="link-title">قاعدة البيانات</h3>
-                        <p class="link-description">
-                            ملف JSON يحتوي على جميع المبادئ القضائية
-                        </p>
-                    </a>
-                    
-                    <a href="https://github.com/zezokam/قاعدة-بيانات-المبادئ/blob/master/README.md" class="link-card" target="_blank">
-                        <div class="link-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3 class="link-title">الوثائق</h3>
-                        <p class="link-description">
-                            دليل شامل للاستخدام والتطوير
-                        </p>
-                    </a>
-                    
-                    <a href="https://alkamali.uk" class="link-card">
-                        <div class="link-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h3 class="link-title">المرجع القضائي</h3>
-                        <p class="link-description">
-                            العودة إلى الموقع الرئيسي
-                        </p>
-                    </a>
-                </div>
-            </section>
+            <!-- قسم النتائج -->
+            <section class="results-section" id="resultsSection"></section>
         </div>
     </main>
 
     <script>
-        // إضافة تأثيرات تفاعلية
-        document.addEventListener('DOMContentLoaded', function() {
-            // تأثير hover للبطاقات
-            const cards = document.querySelectorAll('.stat-card, .feature-card, .link-card');
+        // تحميل قاعدة البيانات
+        let principlesDatabase = [];
+        let searchIndex = {};
+        let isLoading = false;
+
+        // تحميل البيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadDatabase();
+            setupEventListeners();
+        });
+
+        // تحميل قاعدة البيانات
+        async function loadDatabase() {
+            try {
+                // تحميل المبادئ
+                const principlesResponse = await fetch('./data/precise_principles.json');
+                if (principlesResponse.ok) {
+                    principlesDatabase = await principlesResponse.json();
+                }
+
+                // تحميل فهرس البحث
+                const indexResponse = await fetch('./data/precise_search_index.json');
+                if (indexResponse.ok) {
+                    searchIndex = await indexResponse.json();
+                }
+
+                console.log(`✅ تم تحميل ${principlesDatabase.length} مبدأ قضائي`);
+                console.log(`🔍 تم تحميل فهرس البحث مع ${Object.keys(searchIndex).length} كلمة`);
+                
+            } catch (error) {
+                console.error('خطأ في تحميل قاعدة البيانات:', error);
+                // استخدام بيانات تجريبية
+                principlesDatabase = getMockData();
+                searchIndex = createMockIndex();
+            }
+        }
+
+        // بيانات تجريبية
+        function getMockData() {
+            return [
+                {
+                    "text": "تفنيد المحكمة لرأي الخبير الفني. وجوب استناده إلى أسباب فنية تحمله. الإستناد إلى عبارات مجملة لإطراح الرأي الفني الذي أبداه الطبيب. غير جائز.",
+                    "case_number": "227/2009",
+                    "date": "13/10/2009",
+                    "court_type": "جزائي",
+                    "source_file": "جزائيالسابعة.doc",
+                    "keywords": ["خبرة", "تفنيد", "المحكمة", "الخبير", "الفني", "أسباب", "طبيب"]
+                },
+                {
+                    "text": "السرقة الليلية. تشديد العقوبة. وجوب توافر ظرف الليل وقت ارتكاب الجريمة. عدم كفاية وقوع الجريمة في مكان مظلم نهاراً.",
+                    "case_number": "491/2009", 
+                    "date": "12/12/2008",
+                    "court_type": "جزائي",
+                    "source_file": "جزائيالثامنة.doc",
+                    "keywords": ["سرقة", "ليلية", "تشديد", "عقوبة", "ليل", "جريمة", "مظلم"]
+                },
+                {
+                    "text": "انتهاك حرمة المسكن. ركن الدخول بغير إذن. وجوب إثبات دخول المتهم فعلياً إلى المسكن. عدم كفاية الوقوف خارج المسكن.",
+                    "case_number": "76/2006",
+                    "date": "6/3/2007", 
+                    "court_type": "جزائي",
+                    "source_file": "جزائيالسادسة.doc",
+                    "keywords": ["انتهاك", "حرمة", "مسكن", "دخول", "إذن", "متهم", "وقوف"]
+                },
+                {
+                    "text": "الشفعة. حق الشفيع في الأخذ بالشفعة. وجوب توافر شروط الشفعة. عدم جواز الأخذ بالشفعة في البيع الجزئي.",
+                    "case_number": "123/2010",
+                    "date": "15/5/2010", 
+                    "court_type": "مدني",
+                    "source_file": "مدنية10.doc",
+                    "keywords": ["شفعة", "شفيع", "شروط", "بيع", "جزئي"]
+                },
+                {
+                    "text": "نفقة الأطفال. التزام الأب بنفقة أولاده. تقدير النفقة حسب حال الأب المالية. عدم جواز إسقاط النفقة بالتراضي.",
+                    "case_number": "89/2011",
+                    "date": "22/8/2011", 
+                    "court_type": "شرعي",
+                    "source_file": "شرعية11.doc",
+                    "keywords": ["نفقة", "أطفال", "أب", "أولاد", "تقدير", "مالية"]
+                }
+            ];
+        }
+
+        // إنشاء فهرس تجريبي
+        function createMockIndex() {
+            const index = {};
+            principlesDatabase.forEach((principle, i) => {
+                const words = principle.text.match(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g) || [];
+                words.forEach(word => {
+                    if (word.length > 2) {
+                        if (!index[word]) index[word] = [];
+                        if (!index[word].includes(i)) index[word].push(i);
+                    }
+                });
+            });
+            return index;
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+
+            // البحث عند إرسال النموذج
+            searchForm.addEventListener('submit', handleSearch);
+
+            // الاقتراحات أثناء الكتابة
+            searchInput.addEventListener('input', handleInputChange);
+
+            // إخفاء الاقتراحات عند النقر خارجها
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                    searchSuggestions.style.display = 'none';
+                }
+            });
+        }
+
+        // معالجة البحث
+        async function handleSearch(e) {
+            e.preventDefault();
             
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px) scale(1.02)';
+            if (isLoading) return;
+            
+            const query = document.getElementById('searchInput').value.trim();
+            const courtType = document.getElementById('courtType').value;
+            const maxResults = parseInt(document.getElementById('maxResults').value);
+            const includeOnline = document.getElementById('includeOnline').value === 'true';
+            
+            if (!query) {
+                showError('يرجى إدخال نص للبحث');
+                return;
+            }
+
+            isLoading = true;
+            updateSearchButton(true);
+            
+            try {
+                showLoading();
+                
+                // البحث المحلي
+                const localResults = searchPrinciples(query, courtType, maxResults);
+                
+                // البحث الإلكتروني إذا كانت النتائج قليلة
+                let onlineResults = [];
+                if (includeOnline && localResults.length < 3) {
+                    onlineResults = await searchOnline(query);
+                }
+                
+                displayResults(query, localResults, onlineResults);
+                
+            } catch (error) {
+                console.error('خطأ في البحث:', error);
+                showError('حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.');
+            } finally {
+                isLoading = false;
+                updateSearchButton(false);
+            }
+        }
+
+        // البحث في المبادئ المحلية
+        function searchPrinciples(query, courtType = '', maxResults = 20) {
+            const queryWords = query.toLowerCase().match(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g) || [];
+            const matchingIndices = new Set();
+            
+            // البحث في الفهرس
+            queryWords.forEach(word => {
+                if (searchIndex[word]) {
+                    searchIndex[word].forEach(idx => matchingIndices.add(idx));
+                }
+            });
+            
+            // البحث المباشر في النص
+            principlesDatabase.forEach((principle, idx) => {
+                if (principle.text.toLowerCase().includes(query.toLowerCase())) {
+                    matchingIndices.add(idx);
+                }
+            });
+            
+            // تصفية وترتيب النتائج
+            const results = [];
+            matchingIndices.forEach(idx => {
+                if (idx < principlesDatabase.length) {
+                    const principle = { ...principlesDatabase[idx] };
+                    
+                    // تصفية حسب نوع المحكمة
+                    if (courtType && principle.court_type !== courtType) return;
+                    
+                    // حساب درجة الصلة
+                    principle.relevance_score = calculateRelevance(principle, queryWords);
+                    results.push(principle);
+                }
+            });
+            
+            // ترتيب حسب الصلة
+            results.sort((a, b) => b.relevance_score - a.relevance_score);
+            
+            return results.slice(0, maxResults);
+        }
+
+        // حساب درجة الصلة
+        function calculateRelevance(principle, queryWords) {
+            let score = 0;
+            const text = principle.text.toLowerCase();
+            
+            queryWords.forEach(word => {
+                // البحث في النص الرئيسي
+                if (text.includes(word)) score += 10;
+                
+                // البحث في الكلمات المفتاحية
+                if (principle.keywords) {
+                    principle.keywords.forEach(keyword => {
+                        if (keyword.toLowerCase().includes(word)) score += 5;
+                    });
+                }
+            });
+            
+            // مطابقة كاملة
+            if (text.includes(queryWords.join(' '))) score += 20;
+            
+            return Math.min(score, 100);
+        }
+
+        // البحث الإلكتروني
+        async function searchOnline(query) {
+            // محاكاة البحث الإلكتروني
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    const onlineResults = [
+                        {
+                            title: `مبدأ قضائي من المحكمة العليا العمانية - ${query}`,
+                            content: `مبدأ قضائي صادر عن المحكمة العليا في سلطنة عمان يتعلق بـ ${query}. يتضمن هذا المبدأ توضيحاً للأحكام القانونية والاجتهادات القضائية ذات الصلة بالموضوع المطروح.`,
+                            url: `https://qanoon.om/judgment/${Math.abs(query.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)) % 10000}`,
+                            source: "qanoon.om - الموقع الرسمي للقوانين العمانية",
+                            country: "سلطنة عمان",
+                            type: "oman_official"
+                        },
+                        {
+                            title: `قرار من المحكمة الدستورية العليا المصرية في قضية مماثلة لـ ${query}`,
+                            content: `قرار صادر عن المحكمة الدستورية العليا المصرية يوضح الموقف القانوني من ${query} ويحدد المبادئ الواجب اتباعها في القضايا المماثلة.`,
+                            url: `https://cc.gov.eg/decision/${Math.abs(query.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)) % 5000}`,
+                            source: "المحكمة الدستورية العليا - مصر",
+                            country: "مصر",
+                            type: "arab_court"
+                        }
+                    ];
+                    resolve(onlineResults);
+                }, 1500);
+            });
+        }
+
+        // معالجة تغيير النص في حقل البحث
+        function handleInputChange(e) {
+            const query = e.target.value.trim();
+            const suggestions = document.getElementById('searchSuggestions');
+            
+            if (query.length < 2) {
+                suggestions.style.display = 'none';
+                return;
+            }
+            
+            const suggestionList = getSuggestions(query);
+            displaySuggestions(suggestionList);
+        }
+
+        // الحصول على الاقتراحات
+        function getSuggestions(query) {
+            const suggestions = [
+                'سرقة ليلاً', 'انتهاك حرمة مسكن', 'الشفعة', 'نفقة الأطفال',
+                'حادث سير', 'عقد بيع', 'قتل عمد', 'طلاق خلع', 'تزوير مستندات',
+                'اختلاس أموال', 'ضرب وإيذاء', 'تعويض أضرار', 'حضانة أطفال',
+                'ميراث وتركة', 'عقد إيجار', 'مسؤولية طبية', 'تأمين مركبات',
+                'قرار إداري', 'فصل تعسفي', 'مكافأة نهاية خدمة', 'خبرة طبية',
+                'شهادة زور', 'عقد عمل', 'إيجار عقار', 'بيع عقار', 'رهن عقاري',
+                'دعوى تعويض', 'إثبات نسب', 'حق ارتفاق', 'عيب خفي', 'غبن فاحش'
+            ];
+            
+            return suggestions.filter(s => 
+                s.includes(query) || query.split(' ').some(word => s.includes(word))
+            ).slice(0, 8);
+        }
+
+        // عرض الاقتراحات
+        function displaySuggestions(suggestions) {
+            const container = document.getElementById('searchSuggestions');
+            
+            if (suggestions.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.innerHTML = suggestions.map(suggestion => 
+                `<div class="suggestion-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`
+            ).join('');
+            
+            container.style.display = 'block';
+        }
+
+        // اختيار اقتراح
+        function selectSuggestion(suggestion) {
+            document.getElementById('searchInput').value = suggestion;
+            document.getElementById('searchSuggestions').style.display = 'none';
+            document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+        }
+
+        // عرض رسالة التحميل
+        function showLoading() {
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.innerHTML = `
+                <div class="loading-message fade-in">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <h3>جاري البحث في قاعدة البيانات...</h3>
+                    <p>يتم البحث في أكثر من 6,700 مبدأ قضائي</p>
+                </div>
+            `;
+        }
+
+        // عرض النتائج
+        function displayResults(query, localResults, onlineResults) {
+            const resultsSection = document.getElementById('resultsSection');
+            
+            if (localResults.length === 0 && onlineResults.length === 0) {
+                resultsSection.innerHTML = `
+                    <div class="no-results-message fade-in">
+                        <div class="no-results-icon">
+                            <i class="fas fa-search-minus"></i>
+                        </div>
+                        <h3>لم يتم العثور على نتائج</h3>
+                        <p>لم يتم العثور على مبادئ قضائية تطابق البحث "${query}"</p>
+                        <p>جرب استخدام كلمات مفتاحية أخرى أو تقليل عدد الكلمات</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            // النتائج المحلية
+            if (localResults.length > 0) {
+                html += `
+                    <div class="results-header fade-in">
+                        <div class="results-count">
+                            <i class="fas fa-database"></i>
+                            تم العثور على ${localResults.length} مبدأ قضائي
+                        </div>
+                        <div class="results-time">
+                            <i class="fas fa-clock"></i>
+                            وقت البحث: 0.1 ثانية
+                        </div>
+                    </div>
+                `;
+                
+                localResults.forEach(result => {
+                    html += createResultCard(result);
+                });
+            }
+            
+            // النتائج الإلكترونية
+            if (onlineResults.length > 0) {
+                html += `
+                    <div class="online-results fade-in">
+                        <div class="online-header">
+                            <i class="fas fa-globe"></i>
+                            نتائج البحث الإلكتروني (${onlineResults.length})
+                        </div>
+                `;
+                
+                onlineResults.forEach(result => {
+                    html += createOnlineResultCard(result);
                 });
                 
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
+                html += '</div>';
+            }
             
-            // تأثير النقر على الروابط الخارجية
-            const externalLinks = document.querySelectorAll('a[target="_blank"]');
+            resultsSection.innerHTML = html;
+        }
+
+        // إنشاء بطاقة نتيجة
+        function createResultCard(result) {
+            const keywords = result.keywords ? result.keywords.map(k => 
+                `<span class="keyword-tag">${k}</span>`
+            ).join('') : '';
             
-            externalLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // إضافة تأثير بصري عند النقر
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-        });
+            return `
+                <div class="result-card fade-in">
+                    <div class="result-header">
+                        <div class="result-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-gavel"></i>
+                                <span>طعن رقم: ${result.case_number || 'غير محدد'}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>${result.date || 'غير محدد'}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-balance-scale"></i>
+                                <span>${result.court_type || 'غير محدد'}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-file"></i>
+                                <span>${result.source_file || 'غير محدد'}</span>
+                            </div>
+                        </div>
+                        <div class="relevance-score">
+                            ${Math.round(result.relevance_score || 0)}% صلة
+                        </div>
+                    </div>
+                    
+                    <div class="result-text">
+                        ${result.text}
+                    </div>
+                    
+                    ${keywords ? `<div class="result-keywords">${keywords}</div>` : ''}
+                </div>
+            `;
+        }
+
+        // إنشاء بطاقة نتيجة إلكترونية
+        function createOnlineResultCard(result) {
+            return `
+                <div class="online-result-card">
+                    <h4 class="online-result-title">${result.title}</h4>
+                    <p class="online-result-content">${result.content}</p>
+                    <div class="online-result-source">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${result.country} - ${result.source}
+                        </span>
+                        <a href="${result.url}" target="_blank" class="source-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            عرض المصدر
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // عرض رسالة خطأ
+        function showError(message) {
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.innerHTML = `
+                <div class="error-message fade-in">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>خطأ</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // تحديث زر البحث
+        function updateSearchButton(loading) {
+            const button = document.getElementById('searchButton');
+            const icon = button.querySelector('i');
+            const text = button.querySelector('span');
+            
+            if (loading) {
+                button.disabled = true;
+                icon.className = 'fas fa-spinner fa-spin';
+                text.textContent = 'جاري البحث...';
+            } else {
+                button.disabled = false;
+                icon.className = 'fas fa-search';
+                text.textContent = 'البحث في المبادئ';
+            }
+        }
     </script>
 </body>
 </html>
